@@ -7,7 +7,6 @@ import dash_html_components as html
 
 import flask
 import pandas as pd
-import time
 import os
 from datetime import datetime, timedelta
 

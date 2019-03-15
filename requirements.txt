@@ -3,7 +3,6 @@ gunicorn
 django-heroku
 
 datetime
-time
 pandas
 flask
 dash_html_components
