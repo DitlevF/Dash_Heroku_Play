@@ -1,1 +1,1 @@
-web: python server.py --port=$PORT
+web: python website/manage.py runserver 0.0.0.0:$PORT
