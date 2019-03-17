@@ -1,1 +1,1 @@
-web: python finance.py --port=$PORT
+web: gunicorn finance:server
