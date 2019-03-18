@@ -26,11 +26,15 @@ df = data.DataReader(tickers, 'iex', start = start_date); # Default of "end" is 
 #panel_data = data.DataReader('F', 'robinhood')
 
 # %%
+# server = flask.Flask('app')
+# server.secret_key = os.environ.get('secret_key', 'secret')
+#
+# app = dash.Dash('app', server=server)
 
-server = flask.Flask('app')
-server.secret_key = os.environ.get('secret_key', 'secret')
+app = dash.Dash()
+server = app.server
+app.config.suppress_callback_exceptions = True
 
-app = dash.Dash('app', server=server)
 
 app.scripts.config.serve_locally = False
 dcc._js_dist[0]['external_url'] = 'https://cdn.plot.ly/plotly-basic-latest.min.js'
