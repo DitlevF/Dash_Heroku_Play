@@ -27,9 +27,13 @@ from datetime import datetime, timedelta
 
 # Setup the app
 
-server = flask.Flask(__name__)
-server.secret_key = os.environ.get('secret_key', str(randint(0, 1000000)))
-app = dash.Dash(__name__, server=server)
+server = flask.Flask('app')
+server.secret_key = os.environ.get('secret_key', 'secret')
+
+app = dash.Dash('app', server=server)
+
+app.scripts.config.serve_locally = False
+dcc._js_dist[0]['external_url'] = 'https://cdn.plot.ly/plotly-basic-latest.min.js'
 
 # Data
 tickers = ['NVO', 'AMZN']
@@ -45,6 +49,7 @@ start_date = str(now_minus_a_week.date())
 #panel_data = data.DataReader(tickers, 'iex', start_date, end_date)
 df = data.DataReader(tickers, 'iex', start = start_date); # Default of "end" is today
 #panel_data = data.DataReader('F', 'robinhood')
+
 
 app.layout = html.Div([
     html.H1('Stock Tickers'),
@@ -86,4 +91,4 @@ def update_graph(selected_dropdown_value):
 
 # Run the Dash app
 if __name__ == '__main__':
-    app.server.run(debug=False, threaded=False)
+    app.server.run()
