@@ -11,6 +11,27 @@ import os
 from datetime import datetime, timedelta
 
 # %%
+# server = flask.Flask('app')
+# server.secret_key = os.environ.get('secret_key', 'secret')
+#
+# app = dash.Dash('app', server=server)
+
+# app = dash.Dash()
+# server = app.server
+# app.config.suppress_callback_exceptions = True
+#
+#
+# app.scripts.config.serve_locally = False
+# dcc._js_dist[0]['external_url'] = 'https://cdn.plot.ly/plotly-basic-latest.min.js'
+
+
+# Setup the app
+
+server = flask.Flask(__name__)
+server.secret_key = os.environ.get('secret_key', str(randint(0, 1000000)))
+app = dash.Dash(__name__, server=server)
+
+# Data
 tickers = ['NVO', 'AMZN']
 # Set period, number of days we are interested in prior to today
 no_days = 30
@@ -25,19 +46,9 @@ start_date = str(now_minus_a_week.date())
 df = data.DataReader(tickers, 'iex', start = start_date); # Default of "end" is today
 #panel_data = data.DataReader('F', 'robinhood')
 
-# %%
-# server = flask.Flask('app')
-# server.secret_key = os.environ.get('secret_key', 'secret')
-#
-# app = dash.Dash('app', server=server)
-
-app = dash.Dash()
-server = app.server
-app.config.suppress_callback_exceptions = True
-
-
-app.scripts.config.serve_locally = False
-dcc._js_dist[0]['external_url'] = 'https://cdn.plot.ly/plotly-basic-latest.min.js'
+# Run the Dash app
+if __name__ == '__main__':
+    app.server.run(debug=True, threaded=True)
 
 app.layout = html.Div([
     html.H1('Stock Tickers'),
@@ -77,5 +88,6 @@ def update_graph(selected_dropdown_value):
         }
     }
 
+# Run the Dash app
 if __name__ == '__main__':
-    app.run_server()
+    app.server.run(debug=True, threaded=True)

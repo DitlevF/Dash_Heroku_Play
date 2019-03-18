@@ -1,1 +1,1 @@
-web: gunicorn finance:server
+web: gunicorn app:server --timeout 300
