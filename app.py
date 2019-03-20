@@ -86,4 +86,4 @@ def update_graph(selected_dropdown_value):
 
 # Run the Dash app
 if __name__ == '__main__':
-    app.server.run(debug=False, threaded=False)
+    app.server.run(debug=True, threaded=True)
