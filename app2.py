@@ -1,13 +1,20 @@
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+import dash_auth
 
 from datetime import datetime, timedelta
 import webbrowser
 
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+USERNAME_PASSWORD_PAIRS = [
+    ['Ditlev', 'Frisch'], ['username', 'password']
+]
 
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+
+auth = dash_auth.BasicAuth(app, USERNAME_PASSWORD_PAIRS)
+server = app.server
 
 colors = {
     'background': '#111111',
